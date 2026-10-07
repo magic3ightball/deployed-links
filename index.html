@@ -1,0 +1,154 @@
+<title>배포 링크 모음</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gothic+A1:wght@400;600;800&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: one narrow index column; sections by host, each a list of rows (name · domain · tags) */
+:root {
+  --bg: #f3f5f7;
+  --surface: #ffffff;
+  --fg: #16202b;
+  --muted: #5c6b7a;
+  --line: #d9e0e7;
+  --accent: #2d5bd8;
+  --accent-soft: #e4ebfb;
+  --warn: #a6491a;
+  --warn-soft: #fbeae0;
+  --font-display: "Gothic A1", "Apple SD Gothic Neo", system-ui, sans-serif;
+  --font-body: "Gothic A1", "Apple SD Gothic Neo", system-ui, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0f151c; --surface: #17202a; --fg: #e6ecf2; --muted: #93a2b2;
+    --line: #283543; --accent: #85a6ff; --accent-soft: #1f2b47;
+    --warn: #f0a273; --warn-soft: #3a2519; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0f151c; --surface: #17202a; --fg: #e6ecf2; --muted: #93a2b2;
+  --line: #283543; --accent: #85a6ff; --accent-soft: #1f2b47;
+  --warn: #f0a273; --warn-soft: #3a2519; color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body {
+  background: var(--bg); color: var(--fg);
+  font-family: var(--font-body); font-size: 15px; line-height: 1.55;
+  padding-inline: 16px; padding-block: 40px 64px;
+}
+.wrap { max-width: 760px; margin-inline: auto; display: grid; gap: 36px; }
+header { display: grid; gap: 10px; }
+h1 { font-family: var(--font-display); font-weight: 800; font-size: 30px; line-height: 1.2; margin: 0; text-wrap: balance; letter-spacing: -0.01em; }
+.meta { color: var(--muted); font-size: 13px; margin: 0; }
+.meta b { color: var(--fg); font-weight: 600; font-variant-numeric: tabular-nums; }
+.search {
+  width: 100%; font: inherit; color: var(--fg); background: var(--surface);
+  border: 1px solid var(--line); border-radius: 8px; padding: 10px 12px; margin-top: 6px;
+}
+.search:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
+section { display: grid; gap: 10px; }
+h2 {
+  font-family: var(--font-mono); font-weight: 500; font-size: 12px; letter-spacing: 0.08em;
+  text-transform: uppercase; color: var(--muted); margin: 0;
+  display: flex; justify-content: space-between; gap: 12px;
+}
+ul { list-style: none; margin: 0; padding: 0; background: var(--surface); border: 1px solid var(--line); border-radius: 10px; overflow: hidden; }
+li + li { border-top: 1px solid var(--line); }
+li a {
+  display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 2px 16px; align-items: baseline;
+  padding: 12px 16px; color: inherit; text-decoration: none;
+}
+li a:hover { background: var(--accent-soft); }
+li a:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; }
+.name { font-weight: 600; min-width: 0; }
+.tags { display: flex; gap: 6px; justify-content: flex-end; flex-wrap: wrap; }
+.tag { font-size: 11px; padding: 1px 7px; border-radius: 99px; background: var(--accent-soft); color: var(--accent); white-space: nowrap; }
+.tag.warn { background: var(--warn-soft); color: var(--warn); }
+.url { grid-column: 1 / -1; font-family: var(--font-mono); font-size: 12.5px; color: var(--muted); overflow-wrap: anywhere; min-width: 0; }
+li a:hover .url { color: var(--accent); }
+.empty { color: var(--muted); font-size: 14px; }
+footer { color: var(--muted); font-size: 12.5px; border-top: 1px solid var(--line); padding-top: 16px; }
+footer p { margin: 0 0 6px; }
+@media (max-width: 480px) {
+  li a { grid-template-columns: minmax(0, 1fr); }
+  .tags { justify-content: flex-start; }
+  h1 { font-size: 25px; }
+}
+</style>
+
+<div class="wrap">
+  <header>
+    <h1>배포 링크 모음</h1>
+    <p class="meta">Vercel <b id="c-vercel"></b> · GitHub Pages <b id="c-gh"></b> · Artifact <b id="c-art"></b> · 2026-10-07 접속 확인</p>
+    <label for="q" class="meta" style="position:absolute;left:-9999px">링크 검색</label>
+    <input id="q" class="search" type="search" placeholder="이름이나 도메인으로 찾기" autocomplete="off">
+  </header>
+  <div id="list"></div>
+  <p id="empty" class="empty" hidden>찾는 이름이 없어요.</p>
+  <footer>
+    <p>Vercel 목록은 계정의 프로젝트 18개 전체를 조회한 결과예요. 응답 200인 사이트만 넣었고, 404가 난 project-drql3·prototype-chi-sepia는 뺐어요.</p>
+    <p>GitHub Pages와 Artifact는 작업 기록에 남은 것만 있어서 빠진 게 있을 수 있어요.</p>
+  </footer>
+</div>
+
+<script>
+const groups = [
+  { title: "최근 작업 · Vercel", host: "vercel", items: [
+    ["비누 조각 3D", "https://soap-carve.vercel.app", ["WebGPU"]],
+    ["얼굴 말랑이 만들기", "https://face-malangi-maker.vercel.app", ["누끼 메이커"]],
+    ["지환이 말랑이", "https://jihwan-malangi.vercel.app", []],
+    ["Zen Garden", "https://zen-garden-six.vercel.app", ["웹 버전 폐기 예정"]],
+    ["Brush & Ink 붓글씨", "https://brush-ink.vercel.app", ["WebGPU"]],
+    ["Motion Lab", "https://ease-lab.vercel.app", ["셰이더·이징"]],
+    ["Liver CT 종양 퀴즈", "https://liver-ct-tumor-quiz.vercel.app", ["의료"]],
+    ["간의 지도 · 3D 해부학", "https://liver-anatomy-study.vercel.app", ["의료"]],
+  ]},
+  { title: "이전 작업 · Vercel", host: "vercel", items: [
+    ["재고관리 시스템", "https://inventory-prototype-ten.vercel.app", ["프로토타입"]],
+    ["CYC Market Mockups", "https://project-two-sigma-18.vercel.app", ["목업"]],
+    ["더하기 1", "https://plus-one-deploy.vercel.app", ["게임"]],
+    ["가치모고", "https://gachimogo.vercel.app", []],
+    ["가치모고 (중복 프로젝트)", "https://gachimogo-jb2u.vercel.app", ["중복"]],
+    ["Air Theremin", "https://gesture-lab-lime.vercel.app", ["gesture-lab"]],
+    ["recordpic", "https://recordpic.vercel.app", []],
+    ["v0 halftone waves", "https://v0-halftone-waves-sage-three.vercel.app", ["v0"]],
+  ]},
+  { title: "GitHub Pages", host: "gh", items: [
+    ["squishy-lab 말랑이", "https://magic3ightball.github.io/squishy-lab/", []],
+    ["nice-cube", "https://magic3ightball.github.io/squishy-lab/nice-cube/", ["squishy-lab"]],
+    ["air-squishy", "https://magic3ightball.github.io/squishy-lab/air-squishy/", ["squishy-lab"]],
+    ["Plane Detection 튜토리얼", "https://magic3ightball.github.io/2026TechMap_tutorial/tutorials/planeexcavation/", ["DocC"]],
+  ]},
+  { title: "claude.ai Artifact", host: "art", items: [
+    ["Dotori 인프라 3D 다이어그램", "https://claude.ai/artifact/BjdHxGp8EZ79XW5wa1YrfB", []],
+    ["이름 미확인 Artifact", "https://claude.ai/code/artifact/578d63a5-0b62-4981-8b95-5792724a9cdc", ["warn:내용 미확인"]],
+  ]},
+];
+
+const count = h => groups.filter(g => g.host === h).reduce((n, g) => n + g.items.length, 0);
+document.getElementById("c-vercel").textContent = count("vercel");
+document.getElementById("c-gh").textContent = count("gh");
+document.getElementById("c-art").textContent = count("art");
+
+const list = document.getElementById("list");
+const esc = s => s.replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+
+function render(q) {
+  q = q.trim().toLowerCase();
+  let total = 0;
+  list.innerHTML = groups.map(g => {
+    const rows = g.items.filter(([n, u, t]) => !q || (n + " " + u + " " + t.join(" ")).toLowerCase().includes(q));
+    total += rows.length;
+    if (!rows.length) return "";
+    return `<section><h2><span>${esc(g.title)}</span><span>${rows.length}</span></h2><ul>${rows.map(([n, u, t]) => `
+      <li><a href="${esc(u)}" target="_blank" rel="noopener">
+        <span class="name">${esc(n)}</span>
+        <span class="tags">${t.map(x => x.startsWith("warn:") ? `<span class="tag warn">${esc(x.slice(5))}</span>` : `<span class="tag">${esc(x)}</span>`).join("")}</span>
+        <span class="url">${esc(u.replace(/^https:\/\//, "").replace(/\/$/, ""))}</span>
+      </a></li>`).join("")}</ul></section>`;
+  }).join("");
+  list.style.display = "grid"; list.style.gap = "28px";
+  document.getElementById("empty").hidden = total > 0;
+}
+render("");
+document.getElementById("q").addEventListener("input", e => render(e.target.value));
+</script>
