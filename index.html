@@ -1,3 +1,5 @@
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>배포 링크 모음</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gothic+A1:wght@400;600;800&family=IBM+Plex+Mono:wght@400;500&display=swap">
@@ -78,14 +80,14 @@ footer p { margin: 0 0 6px; }
 <div class="wrap">
   <header>
     <h1>배포 링크 모음</h1>
-    <p class="meta">Vercel <b id="c-vercel"></b> · GitHub Pages <b id="c-gh"></b> · Artifact <b id="c-art"></b> · 2026-10-07 접속 확인</p>
+    <p class="meta">Vercel <b id="c-vercel"></b> · GitHub Pages <b id="c-gh"></b> · Artifact <b id="c-art"></b> · 2026-10-15 접속 확인</p>
     <label for="q" class="meta" style="position:absolute;left:-9999px">링크 검색</label>
     <input id="q" class="search" type="search" placeholder="이름이나 도메인으로 찾기" autocomplete="off">
   </header>
   <div id="list"></div>
   <p id="empty" class="empty" hidden>찾는 이름이 없어요.</p>
   <footer>
-    <p>Vercel 목록은 계정의 프로젝트 18개 전체를 조회한 결과예요. 응답 200인 사이트만 넣었고, 404가 난 project-drql3·prototype-chi-sepia는 뺐어요.</p>
+    <p>Vercel 목록은 계정의 프로젝트 19개 전체를 조회한 결과예요. 응답 200인 사이트만 넣었고, 404가 난 project-drql3·prototype-chi-sepia와 일시정지한 jihwan-malangi는 뺐어요.</p>
     <p>GitHub Pages와 Artifact는 작업 기록에 남은 것만 있어서 빠진 게 있을 수 있어요.</p>
   </footer>
 </div>
@@ -93,9 +95,19 @@ footer p { margin: 0 0 6px; }
 <script>
 const groups = [
   { title: "최근 작업 · Vercel", host: "vercel", items: [
+    ["보이드 화면보호기 (속도 색)", "https://boids-xi.vercel.app/screensaver.html", ["군집·창발", "화면보호기"]],
+    ["보이드 군집 (Boids)", "https://boids-xi.vercel.app", ["군집·창발", "Canvas 2D", "알고리즘 설명", "상어 놀이"]],
+    ["모래더미 프랙탈 (Abelian sandpile)", "https://sandpile-flame.vercel.app", ["세포 자동자", "WebGL2", "알고리즘 설명"]],
+    ["Life Hunt HighLife 새 패턴 찾기", "https://life-hunt.vercel.app", ["세포 자동자", "알고리즘 설명"]],
+    ["Life Rules Hunt 생명 게임 규칙 사냥", "https://life-rules-hunt.vercel.app", ["세포 자동자", "알고리즘 설명"]],
+    ["Turmite Hunt 개미 규칙 사냥", "https://turmite-hunt.vercel.app", ["랭턴 개미·턴마이트"]],
+    ["나만의 개미 만들기 (Turmite Hunt)", "https://turmite-hunt.vercel.app/make.html", ["랭턴 개미·턴마이트", "직접 만들기"]],
+    ["Emergence Hunt 창발 패턴 사냥", "https://emergence-hunt.vercel.app", ["Gray-Scott·Particle Life", "WebGPU"]],
+    ["Lenia Hunt 생물 사냥", "https://lenia-hunt.vercel.app", ["연속 세포 자동자", "WebGL2"]],
+    ["Busy Beaver 탐험기", "https://busy-beaver-gamma.vercel.app", ["튜링 기계"]],
+    ["유리 깨기", "https://glass-break-three.vercel.app", ["WebGL"]],
     ["비누 조각 3D", "https://soap-carve.vercel.app", ["WebGPU"]],
     ["얼굴 말랑이 만들기", "https://face-malangi-maker.vercel.app", ["누끼 메이커"]],
-    ["지환이 말랑이", "https://jihwan-malangi.vercel.app", []],
     ["Zen Garden", "https://zen-garden-six.vercel.app", ["웹 버전 폐기 예정"]],
     ["Brush & Ink 붓글씨", "https://brush-ink.vercel.app", ["WebGPU"]],
     ["Motion Lab", "https://ease-lab.vercel.app", ["셰이더·이징"]],
